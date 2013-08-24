@@ -1,0 +1,119 @@
+<head>
+  <title>
+    music
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body></body>
+
+<template name="layout">
+  <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+    <div class="container">
+      {{yield 'header'}}
+    </div>
+  </header>
+  <div class="jumbotron">
+    {{greeting}}
+  </div>
+  <div class="container bs-docs-container">
+    <div class="row">
+<!--       <div class="col-md-3">
+        <div class=" hidden-print affix-top" role="complementary">
+
+        </div>
+      </div> -->
+      <div class="col-md-12" role="main">
+
+        {{{yield}}}
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    {{yield 'footer'}}
+  </footer>
+</template>
+
+
+
+<template name="header">
+
+  <div class="navbar-header">
+    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"><span class="sr-only">Toggle navigation</span></button> <a href="../" class="navbar-brand">Music</a>
+  </div>
+  <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+    <ul class="nav navbar-nav">
+      <li>
+        <a id='play'><i class='icon-play'></i></a>
+      </li>
+      <li>
+        <a id='pause'><i class='icon-pause'></i></a>
+      </li>
+      <li>
+        <a id='progress'><b id='loaded-bar'></b><b id='progress-bar'></b></a>
+      </li>
+      <li>
+        <a href="{{pathFor 'home'}}">Home</a>
+      </li>
+      <li>
+        <a href="{{pathFor 'about'}}">About</a>
+      </li>
+      <li>
+        <a>{{loginButtons}}</a>
+      </li>
+    </ul>
+  </nav>
+
+</template>
+
+<template name="songs">
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="download">
+        Songs {{test}}
+      </h1>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>      
+
+        {{> songList}}
+
+      </tbody>
+    </table>
+  </div> 
+</template>
+<template name="songList">
+
+  {{#each songs}}
+  <tr data-artist="{{artist}}" data-title="{{title}}">
+  <td>{{title}}</td>
+  <td>{{artist}}</td>
+  <td>{{album}}</td>
+  <td>{{rating}}</td>
+  </tr>
+  {{/each}}
+
+</template>
+
+<template name="home">
+  <h1>Home</h1>
+</template>
+
+<template name="about">
+  <h1>About</h1>
+</template>
+
+<template name="footer">
+  Footer
+</template>
+

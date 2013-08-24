@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "grooveshark": {
+      "version": "0.0.3",
+      "dependencies": {
+        "request": {
+          "version": "2.10.0"
+        }
+      }
+    }
+  }
+}

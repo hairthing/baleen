@@ -1,0 +1,27 @@
+#progress {
+  height: 10px;
+  width: 200px;
+  background-color: #ccc;
+  position: relative;
+  padding: 0;
+  margin: 20px 0 0 0;
+  display: inline-block;
+
+}
+#progress b {
+  position: absolute;
+  width: 0;
+  display: block;
+  left: 0;
+  height: 10px;
+  top: 0;
+}
+#progress-bar {
+  background-color: #666;
+  z-index: 3;
+}
+
+#loaded-bar {
+  background-color: #eee;
+  z-index: 2;
+}
