@@ -1,18 +1,14 @@
 Meteor.Router.add
-  "/songs": ->
-    if Meteor.userId()
-      "songs"
-    else
-      "signin"
-
+  "/": "songs"
+  "/songs": "songs"
+  "/signin": "signin"
   "*": "not_found"
-
-
-
 
 Meteor.Router.filters isSignedIn: (page) ->
   if Meteor.loggingIn()
     "loading"
+  else if Meteor.user() and page == "signin"
+    "songs"
   else if Meteor.user()
     page
   else
@@ -20,7 +16,7 @@ Meteor.Router.filters isSignedIn: (page) ->
 
 
 
-Meteor.Router.filter('isSignedIn', {except: 'signin'})
+Meteor.Router.filter('isSignedIn')
 
 
 

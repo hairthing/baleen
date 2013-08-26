@@ -17,8 +17,25 @@ Meteor.startup ->
     for s in songs
       Songs.insert(s)
 
-Meteor.publish "songs", ()->
+
+
+Meteor.publish "allsongs", ()->
   if @userId
     return Songs.find({}) # {artist:{$regex: 'Big', $options: 'i'}})
   else
-    return undefined
+    return false
+
+
+Meteor.publish "usersongs", (id) ->
+  if @userId
+    users = Meteor.users.find({}, {
+      transform: (user)->
+        user.now = new Date()
+        console.log "transform user", user
+        return user
+        # Songs.find({})
+
+      })
+    return users
+  else
+    return false

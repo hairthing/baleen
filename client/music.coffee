@@ -1,9 +1,18 @@
-# Meteor.subscribe("songs");
-# Songs = new Meteor.Collection("song")
-# Meteor.startup ->
-# Template.songList.songs = ()->
-#   return Songs.find({},{limit:10})# {artist:{$regex: 'Big', $options: 'i'}})
-Template.header.events = 
+Meteor.subscribe("allsongs")
+Meteor.subscribe("usersongs")
+Songs = new Meteor.Collection("song")
+# Users = new Meteor.Collection("users")
+console.log Meteor.users.find({},{limit:50})
+Template.songs.songs = ()->
+  return Songs.find({},{limit:50})# {artist:{$regex: 'Big', $options: 'i'}})
+Template.songs.users = ()->
+  return Meteor.users.find({},{limit:50,transform: (user)->
+    user.sngs = Songs.find({user:user.services?.facebook?.email},{limit:5})
+    # console.log "user.songs", user.sngs
+
+    return user
+  })# {artist:{$regex: 'Big', $options: 'i'}})
+Template.songs.events = 
   'click #pause' : (ev)->
     soundManager.pauseAll()
     false
@@ -13,18 +22,17 @@ Template.header.events =
   'click #progress' : (ev)->
     player.progressClick(ev.layerX)
     false
-Template.songList.events = 
-  'click tr' : (ev)->
+  # Template.songs.events = 
+  'click a.play-song' : (ev)->
+    loading = $(ev.currentTarget).children(".loading-song")
+    loading.css {opacity: 0.5}
     song = 
       title: ev.currentTarget.getAttribute('data-title')
       artist: ev.currentTarget.getAttribute('data-artist')
     Meteor.call 'getSong', song, (err, url) ->
       song.url = url
       player.create song
-      # console.log "return getsong", err, url
-      # document.getElementById('player').setAttribute('src', url)
-      # document.getElementById('player').play()
-      # Session.set('serverSimpleResponse', response);
+      loading.css {opacity: 0}
     false
 
 soundManager.setup
